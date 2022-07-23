@@ -21,18 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:fillViewport="true"
-        android:paddingTop="@dimen/internal_action_bar_size"
-        android:paddingBottom="@dimen/l3"
-        app:fitsSystemWindowsInsets="top|bottom"
-        tools:layout_marginTop="24dp">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/l1">
+            android:orientation="vertical">
 
             <Button
                 style="@style/WidgetFoundation.Button"
@@ -45,15 +40,14 @@
                 android:textAllCaps="false"
                 tools:visibility="gone" />
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/WidgetFoundation.Card.Primary"
+            <dev.oneuiproject.oneui.widget.RoundLinearLayout
                 goneUnless="@{viewModel.noticeVisible}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/l1"
-                android:layout_marginEnd="@dimen/l1"
                 android:layout_marginBottom="@dimen/l1"
-                android:focusable="false">
+                android:background="?colorPrimary"
+                android:focusable="false"
+                android:padding="@dimen/l1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -63,7 +57,6 @@
                         android:id="@+id/home_notice_content"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/l1"
                         android:text="@string/home_notice_content"
                         android:textAppearance="@style/AppearanceFoundation.Caption.OnPrimary"
                         app:layout_constraintEnd_toStartOf="@+id/home_notice_hide"
@@ -72,7 +65,7 @@
 
                     <Button
                         android:id="@+id/home_notice_hide"
-                        style="@style/WidgetFoundation.Button.Text.OnPrimary"
+                        style="@style/Widget.AppCompat.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewModel.hideNotice()}"
@@ -84,7 +77,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
             <include
                 android:id="@+id/home_magisk_wrapper"
@@ -92,8 +85,6 @@
                 viewModel="@{viewModel}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/l1"
-                android:layout_marginEnd="@dimen/l1"
                 app:layout_constraintTop_toBottomOf="@+id/home_device_wrapper" />
 
             <include
@@ -102,9 +93,7 @@
                 viewModel="@{viewModel}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/l1"
                 android:layout_marginTop="@dimen/l1"
-                android:layout_marginEnd="@dimen/l1"
                 app:layout_constraintTop_toBottomOf="@+id/home_magisk_wrapper" />
 
             <Space
@@ -113,7 +102,7 @@
                 android:layout_height="@dimen/l1" />
 
             <Button
-                style="@style/WidgetFoundation.Button.Outlined.Error"
+                style="@style/WidgetFoundation.ButtonError"
                 goneUnless="@{Info.env.isActive}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,18 +111,14 @@
                 android:onClick="@{() -> viewModel.onDeletePressed()}"
                 android:text="@string/uninstall_magisk_title"
                 android:textAllCaps="false"
-                android:textSize="12sp"
-                app:cornerRadius="@dimen/r1"
                 app:icon="@drawable/ic_delete_md2" />
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/WidgetFoundation.Card"
+            <dev.oneuiproject.oneui.widget.RoundLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/l1"
-                android:layout_marginEnd="@dimen/l1"
                 android:layout_marginTop="@dimen/l1"
+                android:background="@color/oui_background_color"
                 android:focusable="false">
 
                 <LinearLayout
@@ -164,7 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="@dimen/l_50" >
+                        android:paddingTop="@dimen/l_50">
 
                         <include
                             item="@{IconLink.Patreon.INSTANCE}"
@@ -186,21 +171,21 @@
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/WidgetFoundation.Card"
+            <dev.oneuiproject.oneui.widget.RoundLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_margin="@dimen/l1"
+                android:layout_marginTop="@dimen/l1"
+                android:background="@color/oui_background_color"
                 android:focusable="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/l1">
+                    android:paddingVertical="@dimen/l1">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -244,7 +229,7 @@
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
         </LinearLayout>
 

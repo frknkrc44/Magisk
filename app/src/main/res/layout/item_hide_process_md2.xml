@@ -24,12 +24,11 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/l1"
             android:layout_marginTop="@dimen/l_75"
             android:layout_marginEnd="@dimen/l1"
             android:layout_marginBottom="@dimen/l_75"
-            android:singleLine="true"
             android:ellipsize="middle"
+            android:singleLine="true"
             android:text="@{item.displayName}"
             android:textAppearance="@style/AppearanceFoundation.Caption.Variant"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,12 +37,11 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="com.topjohnwu.magisk" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/hide_process_checkbox"
-            android:checked="@={item.enabled}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/l_50"
+            android:checked="@={item.enabled}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

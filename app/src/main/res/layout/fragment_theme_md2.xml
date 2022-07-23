@@ -18,17 +18,13 @@
         android:clipToPadding="false"
         android:fillViewport="true"
         android:paddingStart="@dimen/l1"
-        android:paddingTop="@dimen/internal_action_bar_size"
-        android:paddingEnd="@dimen/l1"
-        android:paddingBottom="@dimen/l1"
-        app:fitsSystemWindowsInsets="top|bottom">
+        android:paddingEnd="@dimen/l1">
 
         <LinearLayout
             android:id="@+id/theme_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/l1"
             android:useDefaultMargins="true">
 
             <include

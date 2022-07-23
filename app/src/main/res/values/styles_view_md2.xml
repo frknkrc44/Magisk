@@ -11,8 +11,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingStart">@dimen/l1</item>
-        <item name="android:paddingEnd">@dimen/l1</item>
     </style>
 
     <style name="W.Home.Item.Top">
@@ -53,7 +51,7 @@
 
     <style name="W.Theme.Right" />
 
-    <style name="W.Theme.Container" parent="Empty">
+    <style name="W.Theme.Container">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>

@@ -3,15 +3,12 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-
-    <group
-        android:name="forth"
-        android:pivotX="12"
-        android:pivotY="12"
-        android:rotation="180">
-        <path
-            android:fillColor="#000"
-            android:pathData="M20,11H6.83l2.88,-2.88c0.39,-0.39 0.39,-1.02 0,-1.41 -0.39,-0.39 -1.02,-0.39 -1.41,0L3.71,11.3c-0.39,0.39 -0.39,1.02 0,1.41L8.3,17.3c0.39,0.39 1.02,0.39 1.41,0 0.39,-0.39 0.39,-1.02 0,-1.41L6.83,13H20c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1z" />
-    </group>
-
+    <path
+        android:fillColor="#00000000"
+        android:fillType="evenOdd"
+        android:pathData="M13.6925,18.5L19.7125,12.721C20.1225,12.328 20.1225,11.672 19.7125,11.278L13.6925,5.5M3.9816,12L19.2136,12"
+        android:strokeWidth="1.5"
+        android:strokeColor="@color/oui_primary_icon_color"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
 </vector>

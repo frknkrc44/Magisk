@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
@@ -50,11 +52,22 @@ open class SuRequestActivity : UIActivity<ActivityRequestBinding>() {
         } else {
             finish()
         }
+
+        setFinishOnTouchOutside(false)
+        window.setGravity(Gravity.BOTTOM)
     }
 
     override fun getTheme(): Resources.Theme {
         val theme = super.getTheme()
-        theme.applyStyle(R.style.Foundation_Floating, true)
+
+        val outValue = TypedValue()
+        theme.resolveAttribute(
+            androidx.appcompat.R.attr.alertDialogTheme,
+            outValue,
+            true
+        )
+
+        theme.applyStyle(outValue.resourceId, true)
         return theme
     }
 

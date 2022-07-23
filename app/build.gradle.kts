@@ -63,6 +63,16 @@ setupApp()
 configurations.all {
     exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk7")
     exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
+
+    exclude("androidx.core", "core")
+    exclude("androidx.fragment", "fragment")
+    exclude("androidx.appcompat", "appcompat")
+    exclude("androidx.viewpager2", "viewpager2")
+    exclude("androidx.customview", "customview")
+    exclude("androidx.drawerlayout", "drawerlayout")
+    exclude("androidx.recyclerview", "recyclerview")
+    exclude("androidx.coordinatorlayout", "coordinatorlayout")
+    exclude("com.google.android.material", "material")
 }
 
 dependencies {
@@ -108,13 +118,23 @@ dependencies {
 
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.preference:preference:1.2.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    //implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    //implementation("androidx.appcompat:appcompat:1.4.2")
+    //implementation("androidx.preference:preference:1.2.0")
+    //implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation("androidx.transition:transition:1.4.1")
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
-    implementation("com.google.android.material:material:1.6.1")
+    //implementation("com.google.android.material:material:1.6.1")
+
+    implementation("io.github.oneuiproject:design:1.1.1")
+    implementation("io.github.oneuiproject.sesl:appcompat:1.3.0")
+    implementation("io.github.oneuiproject.sesl:material:1.3.0")
+    implementation("io.github.oneuiproject.sesl:swiperefreshlayout:1.0.0")
+    implementation("io.github.oneuiproject.sesl:preference:1.1.0")
+    implementation("io.github.oneuiproject.sesl:recyclerview:1.2.0")
+
+    implementation("androidx.activity:activity") { version { strictly("1.2.4") } }
+    implementation("androidx.activity:activity-ktx") { version { strictly("1.2.4") } }
 }

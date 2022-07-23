@@ -36,11 +36,6 @@ abstract class SplashActivity<Binding : ViewDataBinding> : NavigationActivity<Bi
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(Theme.selected.themeRes)
 
-        if (isRunningAsStub && !skipSplash) {
-            // Manually apply splash theme for stub
-            theme.applyStyle(R.style.StubSplashTheme, true)
-        }
-
         super.onCreate(savedInstanceState)
 
         if (!isRunningAsStub) {

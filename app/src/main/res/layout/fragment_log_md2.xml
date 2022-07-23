@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -29,21 +28,19 @@
             android:layout_gravity="bottom|end"
             android:layout_marginStart="@dimen/l1"
             android:layout_marginEnd="@dimen/l1"
-            android:layout_marginBottom="72dp"
-            app:layout_fitsSystemWindowsInsets="bottom"
+            android:layout_marginBottom="@dimen/l1"
             app:backgroundTint="?colorSurfaceSurfaceVariant"
+            app:layout_fitsSystemWindowsInsets="bottom"
             app:srcCompat="@drawable/ic_folder_list"
-            app:tint="?colorPrimary"
-            tools:layout_marginBottom="64dp" />
+            app:tint="?colorPrimary" />
 
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/log_filter"
-            style="@style/WidgetFoundation.Card"
-            app:cardBackgroundColor="?colorSurface"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:visibility="invisible"
+            app:cardBackgroundColor="?colorSurface"
             app:cardCornerRadius="0dp">
 
             <include

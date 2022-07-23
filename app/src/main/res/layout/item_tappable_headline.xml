@@ -15,16 +15,20 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        style="@style/WidgetFoundation.Card"
+    <dev.oneuiproject.oneui.widget.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/oui_background_color"
         android:onClick="@{() -> listener.onItemPressed(item)}"
         tools:layout_gravity="center">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/listChoiceBackgroundIndicator"
+            android:paddingVertical="5dp"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
 
             <ImageView
                 android:id="@+id/tappable_icon"
@@ -62,6 +66,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
 </layout>
