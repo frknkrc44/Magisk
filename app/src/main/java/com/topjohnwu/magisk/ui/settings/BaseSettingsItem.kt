@@ -15,7 +15,6 @@ sealed class BaseSettingsItem : ObservableRvItem() {
 
     override val layoutRes get() = R.layout.item_settings
 
-    open val icon: Int get() = 0
     open val title: TextHolder get() = TextHolder.EMPTY
     @get:Bindable
     open val description: TextHolder get() = TextHolder.EMPTY

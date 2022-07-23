@@ -38,7 +38,7 @@
     !! notice. In repeated attempts to push such themes you will be automatically blacklisted.
     -->
 
-    <style name="ThemeFoundationMD2" parent="Foundation.Default" />
+    <style name="ThemeFoundationMD2" parent="OneUITheme" />
 
     <!--1st party themes-->
 

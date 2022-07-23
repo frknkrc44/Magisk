@@ -15,10 +15,10 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        style="@style/WidgetFoundation.Card"
+    <dev.oneuiproject.oneui.widget.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/oui_background_color"
         android:focusable="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,12 +42,12 @@
                 android:id="@+id/home_magisk_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/l1"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/magisk"
                 android:textAppearance="@style/AppearanceFoundation.Title"
                 android:textColor="?colorPrimary"
-                android:maxLines="1"
-                android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="@+id/home_magisk_icon"
                 app:layout_constraintEnd_toStartOf="@+id/home_magisk_button"
                 app:layout_constraintStart_toEndOf="@+id/home_magisk_icon"
@@ -57,23 +57,23 @@
                 android:id="@+id/home_magisk_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/home_magisk_title"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/home_magisk_title">
 
                 <Button
-                    style="@style/WidgetFoundation.Button"
+                    style="@style/ButtonStyleColored"
                     gone="@{viewModel.magiskState != State.OUTDATED}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:onClick="@{() -> viewModel.onMagiskPressed()}"
                     android:text="@string/update"
                     android:textAllCaps="false"
-                    android:layout_gravity="end"
                     app:icon="@drawable/ic_update_md2" />
 
                 <Button
-                    style="@style/WidgetFoundation.Button.Text"
+                    style="@style/ButtonStyleColored"
                     gone="@{viewModel.magiskState == State.OUTDATED}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:onClick="@{() -> viewModel.onMagiskPressed()}"
                     android:text="@string/install"
                     android:textAllCaps="false"
-                    app:icon="@drawable/ic_install"/>
+                    app:icon="@drawable/ic_install" />
 
             </FrameLayout>
 
@@ -97,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fadingEdgeLength="@dimen/l1"
+                android:fillViewport="true"
                 android:requiresFadingEdge="horizontal"
                 android:scrollbars="none"
                 app:layout_constraintTop_toBottomOf="@+id/home_magisk_title_barrier">
@@ -169,6 +170,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
 </layout>

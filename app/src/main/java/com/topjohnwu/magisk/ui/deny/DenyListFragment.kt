@@ -2,10 +2,12 @@ package com.topjohnwu.magisk.ui.deny
 
 import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.topjohnwu.magisk.R
@@ -13,7 +15,6 @@ import com.topjohnwu.magisk.arch.BaseFragment
 import com.topjohnwu.magisk.arch.viewModel
 import com.topjohnwu.magisk.databinding.FragmentDenyMd2Binding
 import com.topjohnwu.magisk.ktx.hideKeyboard
-import rikka.recyclerview.addEdgeSpacing
 import rikka.recyclerview.addItemSpacing
 import rikka.recyclerview.fixEdgeEffect
 
@@ -40,8 +41,8 @@ class DenyListFragment : BaseFragment<FragmentDenyMd2Binding>() {
         })
 
         binding.appList.apply {
-            addEdgeSpacing(top = R.dimen.l_50, bottom = R.dimen.l1)
-            addItemSpacing(R.dimen.l1, R.dimen.l_50, R.dimen.l1)
+            //addEdgeSpacing(top = R.dimen.l_50, bottom = R.dimen.l1)
+            addItemSpacing(0, R.dimen.l_75, 0)
             fixEdgeEffect()
         }
     }
@@ -71,6 +72,11 @@ class DenyListFragment : BaseFragment<FragmentDenyMd2Binding>() {
                 return true
             }
         })
+        searchView.findViewById<LinearLayout>(androidx.appcompat.R.id.search_plate).setPadding(
+            0, 0,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics)
+                .toInt(), 0
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

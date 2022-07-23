@@ -18,8 +18,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/l1"
         android:paddingEnd="@dimen/l1">
 
@@ -28,21 +28,22 @@
             android:layout_height="wrap_content"
             android:text="@{item.handle}"
             android:textAppearance="@style/AppearanceFoundation.Caption"
+            android:textSize="14sp"
             android:textStyle="bold"
             tools:text="\@topjohnwu" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:items="@{item.items}"
-            app:extraBindings="@{viewModel.extraBindings}"
-            app:nestedScrollingEnabled="@{false}"
-            android:overScrollMode="never"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:fadingEdgeLength="@dimen/l1"
             android:orientation="horizontal"
+            android:overScrollMode="never"
             android:requiresFadingEdge="horizontal"
+            app:extraBindings="@{viewModel.extraBindings}"
+            app:items="@{item.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:nestedScrollingEnabled="@{false}"
             tools:itemCount="3"
             tools:listitem="@layout/item_icon_link" />
 

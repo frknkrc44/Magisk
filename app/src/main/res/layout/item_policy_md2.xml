@@ -16,16 +16,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/WidgetFoundation.Card"
+        <dev.oneuiproject.oneui.widget.RoundLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="@{item.enabled ? 1f : .5f}"
+            android:background="@color/oui_background_color"
             android:onClick="@{() -> item.toggleExpand()}">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:background="?attr/listChoiceBackgroundIndicator"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,10 +37,10 @@
                     <ImageView
                         android:id="@+id/policy_app_icon"
                         style="@style/WidgetFoundation.Image"
-                        android:layout_marginStart="@dimen/l1"
-                        android:layout_marginTop="@dimen/l1"
-                        android:layout_marginBottom="@dimen/l1"
                         srcCompat="@{item.icon}"
+                        android:layout_marginStart="@dimen/l1"
+                        android:layout_marginTop="@dimen/l_75"
+                        android:layout_marginBottom="@dimen/l_75"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +69,7 @@
                         android:id="@+id/policy_package_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/l1"
+                        android:layout_marginBottom="@dimen/l_75"
                         android:ellipsize="middle"
                         android:gravity="start"
                         android:maxLines="2"
@@ -86,8 +88,8 @@
                         android:id="@+id/policy_indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={item.enabled}"
                         android:layout_marginEnd="@dimen/l1"
+                        android:checked="@={item.enabled}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -96,82 +98,67 @@
 
                 <LinearLayout
                     android:id="@+id/policy_expand_container"
-                    android:orientation="horizontal"
                     gone="@{!item.isExpanded}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?colorSurfaceVariant"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/l1"
+                    android:paddingVertical="@dimen/l_75"
                     tools:visibility="visible">
 
                     <Button
                         android:id="@+id/policy_notify"
-                        style="@style/WidgetFoundation.Button.Text"
+                        style="@style/ButtonStyleColored"
                         isSelected="@{item.shouldNotify}"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="24dp"
+                        android:layout_weight="1"
                         android:onClick="@{() -> item.toggleNotify()}"
-                        android:text="@string/superuser_toggle_notification"
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/AppearanceFoundation.Tiny"
-                        android:textColor="@color/color_state_primary_transient"
-                        app:icon="@drawable/ic_notifications_md2"
-                        app:iconTint="@color/color_state_primary_transient"
-                        app:tint="@color/color_state_primary_transient" />
+                        android:singleLine="true"
+                        android:text="@string/superuser_toggle_notification" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_marginTop="@dimen/l_50"
                         android:layout_marginBottom="@dimen/l_50"
                         android:background="?colorSurfaceSurfaceVariant" />
 
                     <Button
                         android:id="@+id/policy_log"
-                        style="@style/WidgetFoundation.Button.Text"
+                        style="@style/ButtonStyleColored"
                         isSelected="@{item.shouldLog}"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="24dp"
+                        android:layout_weight="1"
                         android:onClick="@{() -> item.toggleLog()}"
-                        android:text="@string/logs"
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/AppearanceFoundation.Tiny"
-                        android:textColor="@color/color_state_primary_transient"
-                        app:icon="@drawable/ic_bug_md2"
-                        app:iconTint="@color/color_state_primary_transient"
-                        app:tint="@color/color_state_primary_transient" />
+                        android:singleLine="true"
+                        android:text="@string/logs" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_marginTop="@dimen/l_50"
                         android:layout_marginBottom="@dimen/l_50"
                         android:background="?colorSurfaceSurfaceVariant" />
 
                     <Button
                         android:id="@+id/policy_delete"
-                        style="@style/WidgetFoundation.Button.Text"
-                        android:layout_weight="1"
+                        style="@style/ButtonStyleError"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="24dp"
+                        android:layout_weight="1"
                         android:onClick="@{() -> item.revoke()}"
-                        android:text="@string/superuser_toggle_revoke"
-                        android:textAllCaps="false"
-                        android:textColor="?colorError"
-                        android:textSize="12sp"
-                        app:icon="@drawable/ic_delete_md2"
-                        app:iconTint="?colorError"
-                        app:rippleColor="?colorError" />
+                        android:singleLine="true"
+                        android:text="@string/superuser_toggle_revoke" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
     </FrameLayout>
 

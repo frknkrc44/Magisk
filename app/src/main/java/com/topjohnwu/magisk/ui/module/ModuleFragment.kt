@@ -33,7 +33,7 @@ class ModuleFragment : BaseFragment<FragmentModuleMd2Binding>() {
 
         binding.moduleList.apply {
             addEdgeSpacing(top = R.dimen.l_50, bottom = R.dimen.l1)
-            addItemSpacing(R.dimen.l1, R.dimen.l_50, R.dimen.l1)
+            addItemSpacing(0, R.dimen.l_50, 0)
             fixEdgeEffect()
             post { addInvalidateItemDecorationsObserver() }
         }

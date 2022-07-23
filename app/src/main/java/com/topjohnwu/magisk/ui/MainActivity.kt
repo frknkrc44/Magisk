@@ -52,10 +52,20 @@ class MainActivity : SplashActivity<ActivityMainMd2Binding>() {
 
     private var isRootFragment = true
 
+    private var bindingInitialized = false
+
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        if (bindingInitialized) binding.mainToolbar.setTitle(title)
+    }
+
     override fun showMainUI(savedInstanceState: Bundle?) {
         setContentView()
         showUnsupportedMessage()
         askForHomeShortcut()
+
+        bindingInitialized = true
+        title = title //yes this is stupid but required!
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
@@ -78,7 +88,7 @@ class MainActivity : SplashActivity<ActivityMainMd2Binding>() {
             }
         }
 
-        setSupportActionBar(binding.mainToolbar)
+        setSupportActionBar(binding.mainToolbar.toolbar)
 
         binding.mainNavigation.setOnItemSelectedListener {
             getScreen(it.itemId)?.navigate()
@@ -115,14 +125,12 @@ class MainActivity : SplashActivity<ActivityMainMd2Binding>() {
 
     fun setDisplayHomeAsUpEnabled(isEnabled: Boolean) {
         binding.mainToolbar.startAnimations()
-        when {
-            isEnabled -> binding.mainToolbar.setNavigationIcon(R.drawable.ic_back_md2)
-            else -> binding.mainToolbar.navigationIcon = null
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(isEnabled)
     }
 
     internal fun requestNavigationHidden(hide: Boolean = true, requiresAnimation: Boolean = true) {
         val bottomView = binding.mainNavigation
+        if (bottomView.isHidden == hide) return
         if (requiresAnimation) {
             bottomView.isVisible = true
             bottomView.isHidden = hide

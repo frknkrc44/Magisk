@@ -176,16 +176,6 @@ fun RecyclerView.setDividers(dividerVertical: Drawable?, dividerHorizontal: Draw
     }
 }
 
-@BindingAdapter("icon")
-fun Button.setIconRes(res: Int) {
-    (this as MaterialButton).setIconResource(res)
-}
-
-@BindingAdapter("icon")
-fun Button.setIcon(drawable: Drawable) {
-    (this as MaterialButton).icon = drawable
-}
-
 @BindingAdapter("strokeWidth")
 fun MaterialCardView.setCardStrokeWidthBound(stroke: Float) {
     strokeWidth = stroke.roundToInt()

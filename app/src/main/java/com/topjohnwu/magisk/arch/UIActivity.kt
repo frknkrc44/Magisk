@@ -49,7 +49,7 @@ abstract class UIActivity<Binding : ViewDataBinding> : BaseActivity(), ViewModel
             .use { it.getDrawable(0) }
             .also { window.setBackgroundDrawable(it) }
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             window?.decorView?.post {

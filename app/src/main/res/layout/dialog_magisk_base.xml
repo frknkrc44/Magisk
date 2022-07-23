@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -11,170 +9,168 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_width="match_parent">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/sesl_dialog_title_padding_top">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/dialog_base_start"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp" />
+            android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/dialog_base_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="16dp" />
-
-        <ImageView
-            android:id="@+id/dialog_base_icon"
-            style="@style/WidgetFoundation.Image.Big"
-            gone="@{data.icon == null}"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/l1"
-            android:src="@{data.icon}"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_base_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_delete_md2" />
-
-        <TextView
-            android:id="@+id/dialog_base_title"
-            gone="@{data.title.length == 0}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/l1"
-            android:gravity="center"
-            android:text="@{data.title}"
-            android:textAppearance="@style/AppearanceFoundation.Title"
-            app:layout_constraintEnd_toEndOf="@+id/dialog_base_end"
-            app:layout_constraintStart_toStartOf="@+id/dialog_base_start"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_base_icon"
-            tools:lines="1"
-            tools:text="@tools:sample/lorem/random" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/l_50"
-            android:overScrollMode="ifContentScrolls"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_base_space"
-            app:layout_constraintEnd_toEndOf="@+id/dialog_base_end"
-            app:layout_constraintStart_toStartOf="@+id/dialog_base_start"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_base_title">
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="start|bottom|center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/sesl_dialog_padding_horizontal"
+                android:paddingRight="@dimen/sesl_dialog_padding_horizontal"
+                android:paddingBottom="@dimen/sesl_dialog_title_padding_bottom">
+
+                <ImageView
+                    android:id="@+id/dialog_base_icon"
+                    style="@style/RtlOverlay.Widget.AppCompat.DialogTitle.Icon"
+                    gone="@{data.icon == null}"
+                    android:layout_width="32dip"
+                    android:layout_height="32dip"
+                    android:scaleType="fitCenter"
+                    android:src="@{data.icon}" />
+
+                <androidx.appcompat.widget.DialogTitle
+                    android:id="@+id/dialog_base_title"
+                    style="?android:attr/windowTitleStyle"
+                    gone="@{data.title.length == 0}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{data.title}"
+                    android:textAlignment="viewStart" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            gone="@{data.message.length == 0}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="24dip">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/sesl_dialog_body_text_scroll_padding_start"
+                android:paddingEnd="@dimen/sesl_dialog_body_text_scroll_padding_end"
+                android:paddingBottom="@dimen/sesl_dialog_body_text_padding_bottom"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical">
 
                 <TextView
                     android:id="@+id/dialog_base_message"
-                    gone="@{data.message.length == 0}"
+                    style="?android:attr/textAppearance"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sesl_dialog_body_text_margin_start"
+                    android:layout_marginEnd="@dimen/sesl_dialog_body_text_margin_end"
+                    android:lineSpacingExtra="@dimen/sesl_dialog_body_text_line_spacing_extra"
                     android:text="@{data.message}"
-                    android:textAppearance="@style/AppearanceFoundation.Body"
-                    tools:lines="3"
-                    tools:text="@tools:sample/lorem/random" />
+                    android:textAlignment="viewStart" />
 
-                <FrameLayout
-                    android:id="@+id/dialog_base_container"
-                    gone="@{data.message.length != 0}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            </androidx.core.widget.NestedScrollView>
 
-            </FrameLayout>
+        </FrameLayout>
 
-        </androidx.core.widget.NestedScrollView>
-
-        <Space
-            android:id="@+id/dialog_base_space"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/l_50"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_base_buttons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.ButtonBarLayout
-            android:id="@+id/dialog_base_buttons"
-            android:layout_width="0dp"
+        <FrameLayout
+            android:id="@+id/dialog_base_container"
+            gone="@{data.message.length != 0}"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom|center_horizontal"
-            android:layoutDirection="locale"
-            android:orientation="horizontal"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_weight="1"
+            android:minHeight="48dip" />
 
-            <Button
-                android:id="@+id/dialog_base_button_2"
-                style="@style/WidgetFoundation.Button.Text"
-                gone="@{data.buttonNeutral.gone}"
-                isEnabled="@{data.buttonNeutral.isEnabled}"
-                android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollIndicators="top|bottom"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
+
+            <androidx.appcompat.widget.ButtonBarLayout
+                android:id="@+id/dialog_base_buttons"
+                style="?attr/buttonBarStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:clickable="@{data.buttonNeutral.isEnabled}"
-                android:focusable="@{data.buttonNeutral.isEnabled}"
-                android:onClick="@{() -> data.buttonNeutral.clicked()}"
-                android:text="@{data.buttonNeutral.message}"
-                app:icon="@{data.buttonNeutral.icon}"
-                app:iconGravity="textStart"
-                tools:icon="@drawable/ic_bug_md2"
-                tools:text="Button 1" />
+                android:layoutDirection="locale"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/sesl_dialog_button_bar_padding_horizontal"
+                android:paddingEnd="@dimen/sesl_dialog_button_bar_padding_horizontal"
+                android:paddingBottom="@dimen/sesl_dialog_button_bar_padding_bottom">
 
-            <Space
-                android:id="@+id/spacer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="invisible" />
+                <android.widget.Button
+                    android:id="@+id/dialog_base_button_2"
+                    style="?attr/buttonBarNeutralButtonStyle"
+                    gone="@{data.buttonNeutral.gone}"
+                    isEnabled="@{data.buttonNeutral.isEnabled}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="@{data.buttonNeutral.isEnabled}"
+                    android:focusable="@{data.buttonNeutral.isEnabled}"
+                    android:onClick="@{() -> data.buttonNeutral.clicked()}"
+                    android:text="@{data.buttonNeutral.message}"
+                    android:textColor="@color/dialog_button_color" />
 
-            <Button
-                android:id="@+id/dialog_base_button_3"
-                style="@style/WidgetFoundation.Button.Text"
-                gone="@{data.buttonNegative.gone}"
-                isEnabled="@{data.buttonNegative.isEnabled}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:clickable="@{data.buttonNegative.isEnabled}"
-                android:focusable="@{data.buttonNegative.isEnabled}"
-                android:onClick="@{() -> data.buttonNegative.clicked()}"
-                android:text="@{data.buttonNegative.message}"
-                app:icon="@{data.buttonNegative.icon}"
-                tools:icon="@drawable/ic_bug_md2"
-                tools:text="Button 1" />
+                <View
+                    android:id="@+id/sem_divider2"
+                    android:layout_width="1dip"
+                    android:layout_height="16dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/seslDialogDivderColor"
+                    android:visibility="gone" />
 
-            <Button
-                android:id="@+id/dialog_base_button_1"
-                style="@style/WidgetFoundation.Button.Text"
-                gone="@{data.buttonPositive.gone}"
-                isEnabled="@{data.buttonPositive.isEnabled}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:clickable="@{data.buttonPositive.isEnabled}"
-                android:focusable="@{data.buttonPositive.isEnabled}"
-                android:onClick="@{() -> data.buttonPositive.clicked()}"
-                android:text="@{data.buttonPositive.message}"
-                app:icon="@{data.buttonPositive.icon}"
-                app:iconGravity="textStart"
-                tools:icon="@drawable/ic_bug_md2"
-                tools:text="Button 1" />
+                <android.widget.Button
+                    android:id="@+id/dialog_base_button_3"
+                    style="?attr/buttonBarNegativeButtonStyle"
+                    gone="@{data.buttonNegative.gone}"
+                    isEnabled="@{data.buttonNegative.isEnabled}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="@{data.buttonNegative.isEnabled}"
+                    android:focusable="@{data.buttonNegative.isEnabled}"
+                    android:onClick="@{() -> data.buttonNegative.clicked()}"
+                    android:text="@{data.buttonNegative.message}"
+                    android:textColor="@color/dialog_button_color" />
 
-        </androidx.appcompat.widget.ButtonBarLayout>
+                <View
+                    android:id="@+id/sem_divider1"
+                    android:layout_width="1dip"
+                    android:layout_height="16dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/seslDialogDivderColor"
+                    android:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <android.widget.Button
+                    android:id="@+id/dialog_base_button_1"
+                    style="?attr/buttonBarPositiveButtonStyle"
+                    gone="@{data.buttonPositive.gone}"
+                    isEnabled="@{data.buttonPositive.isEnabled}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="@{data.buttonPositive.isEnabled}"
+                    android:focusable="@{data.buttonPositive.isEnabled}"
+                    android:onClick="@{() -> data.buttonPositive.clicked()}"
+                    android:text="@{data.buttonPositive.message}"
+                    android:textColor="@color/dialog_button_color" />
+
+            </androidx.appcompat.widget.ButtonBarLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
 </layout>

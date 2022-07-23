@@ -53,9 +53,49 @@ public class ConcealableBottomNavigationView extends BottomNavigationView {
         Animator toHidden = ObjectAnimator.ofFloat(this, "translationY", height);
         toHidden.setDuration(175);
         toHidden.setInterpolator(new FastOutLinearInInterpolator());
+        toHidden.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                setVisibility(GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+
         Animator toUnhidden = ObjectAnimator.ofFloat(this, "translationY", 0);
         toUnhidden.setDuration(225);
         toUnhidden.setInterpolator(new FastOutLinearInInterpolator());
+        toUnhidden.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
 
         StateListAnimator animator = new StateListAnimator();
 

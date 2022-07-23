@@ -2,23 +2,21 @@ package com.topjohnwu.magisk.view
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.Bindable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.shape.MaterialShapeDrawable
 import com.topjohnwu.magisk.BR
 import com.topjohnwu.magisk.R
 import com.topjohnwu.magisk.databinding.*
@@ -28,7 +26,23 @@ typealias DialogButtonClickListener = (DialogInterface) -> Unit
 
 class MagiskDialog(
     context: Context, theme: Int = 0
-) : AppCompatDialog(context, theme) {
+) : AppCompatDialog(context, resolveDialogTheme(context, theme)) {
+
+    companion object {
+        fun resolveDialogTheme(context: Context, @StyleRes resid: Int): Int {
+            return if (resid ushr 24 and 0x000000ff >= 0x00000001) {
+                resid
+            } else {
+                val outValue = TypedValue()
+                context.theme.resolveAttribute(
+                    androidx.appcompat.R.attr.alertDialogTheme,
+                    outValue,
+                    true
+                )
+                outValue.resourceId
+            }
+        }
+    }
 
     private val binding: DialogMagiskBaseBinding =
         DialogMagiskBaseBinding.inflate(LayoutInflater.from(context))
@@ -93,7 +107,8 @@ class MagiskDialog(
             }
 
         @get:Bindable
-        val gone get() = icon == 0 && message.isEmpty()
+        val gone
+            get() = icon == 0 && message.isEmpty()
 
         @get:Bindable
         override var isEnabled = true
@@ -118,37 +133,31 @@ class MagiskDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(binding.root)
-
-        val default = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, javaClass.canonicalName)
-        val surfaceColor = MaterialColors.getColor(context, R.attr.colorSurfaceSurfaceVariant, default)
-        val materialShapeDrawable = MaterialShapeDrawable(context, null, androidx.appcompat.R.attr.alertDialogStyle, com.google.android.material.R.style.MaterialAlertDialog_MaterialComponents)
-        materialShapeDrawable.initializeElevationOverlay(context)
-        materialShapeDrawable.fillColor = ColorStateList.valueOf(surfaceColor)
-        materialShapeDrawable.elevation = context.resources.getDimension(R.dimen.margin_generic)
-        materialShapeDrawable.setCornerSize(context.resources.getDimension(R.dimen.l_50))
-
-        val inset = context.resources.getDimensionPixelSize(com.google.android.material.R.dimen.appcompat_dialog_background_inset)
-        window?.apply {
-            setBackgroundDrawable(InsetDrawable(materialShapeDrawable, inset, inset, inset, inset))
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
     }
 
-    override fun setTitle(@StringRes titleId: Int) { data.title = context.getString(titleId) }
+    override fun setTitle(@StringRes titleId: Int) {
+        data.title = context.getString(titleId)
+    }
 
-    override fun setTitle(title: CharSequence?) { data.title = title ?: "" }
+    override fun setTitle(title: CharSequence?) {
+        data.title = title ?: ""
+    }
 
     fun setMessage(@StringRes msgId: Int, vararg args: Any) {
         data.message = context.getString(msgId, *args)
     }
 
-    fun setMessage(message: CharSequence) { data.message = message }
+    fun setMessage(message: CharSequence) {
+        data.message = message
+    }
 
     fun setIcon(@DrawableRes drawableRes: Int) {
         data.icon = AppCompatResources.getDrawable(context, drawableRes)
     }
 
-    fun setIcon(drawable: Drawable) { data.icon = drawable }
+    fun setIcon(drawable: Drawable) {
+        data.icon = drawable
+    }
 
     fun setButton(buttonType: ButtonType, builder: Button.() -> Unit) {
         val button = when (buttonType) {
@@ -213,9 +222,14 @@ class MagiskDialog(
     // Prevent calling setContentView
 
     @Deprecated("Please use setView(view)", level = DeprecationLevel.ERROR)
-    override fun setContentView(layoutResID: Int) {}
+    override fun setContentView(layoutResID: Int) {
+    }
+
     @Deprecated("Please use setView(view)", level = DeprecationLevel.ERROR)
-    override fun setContentView(view: View) {}
+    override fun setContentView(view: View) {
+    }
+
     @Deprecated("Please use setView(view)", level = DeprecationLevel.ERROR)
-    override fun setContentView(view: View, params: ViewGroup.LayoutParams?) {}
+    override fun setContentView(view: View, params: ViewGroup.LayoutParams?) {
+    }
 }
