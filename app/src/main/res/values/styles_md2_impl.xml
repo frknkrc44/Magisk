@@ -3,14 +3,12 @@
 
     <style name="WidgetFoundation" parent="android:Widget" />
 
-    <style name="WidgetFoundation.Button" parent="Widget.AppCompat.Button">
-        <item name="android:backgroundTint">?colorSecondary</item>
-        <item name="android:textColor">#ffffff</item>
+    <style name="ButtonStyleColored" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/color_btn_background_colored</item>
     </style>
 
-    <style name="WidgetFoundation.ButtonError" parent="Widget.AppCompat.Button">
+    <style name="ButtonStyleError" parent="Widget.AppCompat.Button">
         <item name="android:backgroundTint">@color/color_error_transient</item>
-        <item name="android:textColor">#ffffff</item>
     </style>
 
 

@@ -33,6 +33,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsMd2Binding>() {
         binding.settingsList.apply {
             //addEdgeSpacing(bottom = R.dimen.l1)
             //addItemSpacing(R.dimen.l1, R.dimen.l_50, R.dimen.l1)
+            seslSetFillBottomEnabled(true)
             addItemDecoration(ItemDecoration(context))
             fixEdgeEffect()
         }

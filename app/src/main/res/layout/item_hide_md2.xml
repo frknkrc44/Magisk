@@ -20,16 +20,15 @@
     <dev.oneuiproject.oneui.widget.RoundFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/oui_background_color"
-        android:focusable="false"
-        android:paddingHorizontal="@dimen/l1">
+        android:background="@color/oui_background_color">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:background="?listChoiceBackgroundIndicator"
-            android:orientation="vertical">
+            android:background="?attr/listChoiceBackgroundIndicator"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/l1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/hide_expand"

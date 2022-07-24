@@ -30,7 +30,7 @@
             android:orientation="vertical">
 
             <Button
-                style="@style/WidgetFoundation.Button"
+                style="@style/ButtonStyleColored"
                 gone="@{!viewModel.showTest}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,35 +47,27 @@
                 android:layout_marginBottom="@dimen/l1"
                 android:background="?colorPrimary"
                 android:focusable="false"
-                android:padding="@dimen/l1">
+                android:orientation="horizontal"
+                android:padding="18dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/home_notice_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1"
+                    android:text="@string/home_notice_content"
+                    android:textAppearance="@style/AppearanceFoundation.Caption.OnPrimary" />
 
-                    <TextView
-                        android:id="@+id/home_notice_content"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_notice_content"
-                        android:textAppearance="@style/AppearanceFoundation.Caption.OnPrimary"
-                        app:layout_constraintEnd_toStartOf="@+id/home_notice_hide"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/home_notice_hide"
-                        style="@style/Widget.AppCompat.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{() -> viewModel.hideNotice()}"
-                        android:text="@string/hide"
-                        android:textAllCaps="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/home_notice_hide"
+                    android:layout_width="22.0dip"
+                    android:layout_height="22.0dip"
+                    android:layout_marginStart="12dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel.hideNotice()}"
+                    android:src="@drawable/ic_close_md2"
+                    app:tint="@color/sesl_white" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -102,7 +94,7 @@
                 android:layout_height="@dimen/l1" />
 
             <Button
-                style="@style/WidgetFoundation.ButtonError"
+                style="@style/ButtonStyleError"
                 goneUnless="@{Info.env.isActive}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -221,6 +213,14 @@
 
                     <include
                         item="@{DeveloperItem.Rikka.INSTANCE}"
+                        layout="@layout/item_developer"
+                        viewModel="@{viewModel}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/l_50" />
+
+                    <include
+                        item="@{DeveloperItem.YND.INSTANCE}"
                         layout="@layout/item_developer"
                         viewModel="@{viewModel}"
                         android:layout_width="wrap_content"

@@ -121,7 +121,8 @@
                     android:clickable="@{data.buttonNeutral.isEnabled}"
                     android:focusable="@{data.buttonNeutral.isEnabled}"
                     android:onClick="@{() -> data.buttonNeutral.clicked()}"
-                    android:text="@{data.buttonNeutral.message}" />
+                    android:text="@{data.buttonNeutral.message}"
+                    android:textColor="@color/dialog_button_color" />
 
                 <View
                     android:id="@+id/sem_divider2"
@@ -142,7 +143,8 @@
                     android:clickable="@{data.buttonNegative.isEnabled}"
                     android:focusable="@{data.buttonNegative.isEnabled}"
                     android:onClick="@{() -> data.buttonNegative.clicked()}"
-                    android:text="@{data.buttonNegative.message}" />
+                    android:text="@{data.buttonNegative.message}"
+                    android:textColor="@color/dialog_button_color" />
 
                 <View
                     android:id="@+id/sem_divider1"
@@ -163,7 +165,8 @@
                     android:clickable="@{data.buttonPositive.isEnabled}"
                     android:focusable="@{data.buttonPositive.isEnabled}"
                     android:onClick="@{() -> data.buttonPositive.clicked()}"
-                    android:text="@{data.buttonPositive.message}" />
+                    android:text="@{data.buttonPositive.message}"
+                    android:textColor="@color/dialog_button_color" />
 
             </androidx.appcompat.widget.ButtonBarLayout>
         </ScrollView>
