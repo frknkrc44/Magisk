@@ -10,25 +10,17 @@ constexpr char MAGISK_RC[] =
 "on post-fs-data\n"
 "    start logd\n"
 "    rm " UNBLOCKFILE "\n"
-"    start %2$s\n"
+"    exec u:r:" SEPOL_PROC_DOMAIN ":s0 root root -- %1$s/magisk --post-fs-data\n"
+"\n"
 "    wait " UNBLOCKFILE " " str(POST_FS_DATA_WAIT_TIME) "\n"
 "    rm " UNBLOCKFILE "\n"
 "\n"
 
-"service %2$s %1$s/magisk --post-fs-data\n"
-"    user root\n"
-"    seclabel u:r:" SEPOL_PROC_DOMAIN ":s0\n"
-"    oneshot\n"
-"\n"
-
-"service %3$s %1$s/magisk --service\n"
-"    class late_start\n"
-"    user root\n"
-"    seclabel u:r:" SEPOL_PROC_DOMAIN ":s0\n"
-"    oneshot\n"
+"    exec u:r:" SEPOL_PROC_DOMAIN ":s0 root root -- %1$s/magisk --service\n"
 "\n"
 
 "on property:sys.boot_completed=1\n"
+
 "    exec %1$s/magisk --boot-complete\n"
 "\n"
 
@@ -38,5 +30,13 @@ constexpr char MAGISK_RC[] =
 
 "on property:init.svc.zygote=stopped\n"
 "    exec %1$s/magisk --zygote-restart\n"
+"\n"
+
+"on property:sys.boot_completed=1 && property:sys.oem_unlock_allowed=*\n"
+"    exec u:r:" SEPOL_PROC_DOMAIN ":s0 root root -- %1$s/magisk resetprop -n sys.oem_unlock_allowed 0\n"
+"\n"
+
+"on property:sys.boot_completed=1 && property:init.svc.adbd=*\n"
+"    exec u:r:" SEPOL_PROC_DOMAIN ":s0 root root -- %1$s/magisk resetprop -n init.svc.adbd stopped\n"
 "\n"
 ;

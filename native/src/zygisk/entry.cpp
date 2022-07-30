@@ -137,8 +137,7 @@ extern "C" void zygisk_log_write(int prio, const char *msg, int len) {
 }
 
 static inline bool should_load_modules(uint32_t flags) {
-    return (flags & UNMOUNT_MASK) != UNMOUNT_MASK &&
-           (flags & PROCESS_IS_MAGISK_APP) != PROCESS_IS_MAGISK_APP;
+    return (flags & PROCESS_IS_MAGISK_APP) != PROCESS_IS_MAGISK_APP;
 }
 
 int remote_get_info(int uid, const char *process, uint32_t *flags, vector<int> &fds) {
@@ -310,7 +309,7 @@ static void get_process_info(int client, const sock_cred *cred) {
         flags |= PROCESS_IS_MAGISK_APP;
     }
     if (denylist_enforced) {
-        flags |= DENYLIST_ENFORCING;
+        flags |= MAGISKHIDE_ENABLED;
     }
     if (uid_granted_root(uid)) {
         flags |= PROCESS_GRANTED_ROOT;

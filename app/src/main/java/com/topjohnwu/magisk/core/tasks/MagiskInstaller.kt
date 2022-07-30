@@ -406,12 +406,14 @@ abstract class MagiskInstallImpl protected constructor(
     private fun String.fsh() = ShellUtils.fastCmd(shell, this)
     private fun Array<String>.fsh() = ShellUtils.fastCmd(shell, *this)
 
-    protected fun patchFile(file: Uri) = extractFiles() && handleFile(file)
+    protected fun patchFile(file: Uri) = extractFiles() && "print_title_delta".sh().isSuccess && handleFile(file)
 
-    protected fun direct() = findImage() && extractFiles() && patchBoot() && flashBoot()
+    protected fun direct() = findImage() && extractFiles() && "print_title_delta".sh().isSuccess && patchBoot() && flashBoot()
+
+    protected fun direct_system() = extractFiles() && "direct_install_system $installDir".sh().isSuccess
 
     protected fun secondSlot() =
-        findSecondary() && extractFiles() && patchBoot() && flashBoot() && postOTA()
+        findSecondary() && extractFiles() && "print_title_delta".sh().isSuccess && patchBoot() && flashBoot() && postOTA()
 
     protected fun fixEnv() = extractFiles() && "fix_env $installDir".sh().isSuccess
 
@@ -469,6 +471,13 @@ abstract class MagiskInstaller(
         logs: MutableList<String>
     ) : MagiskInstaller(console, logs) {
         override suspend fun operations() = direct()
+    }
+
+    class Direct_system(
+        console: MutableList<String>,
+        logs: MutableList<String>
+    ) : MagiskInstaller(console, logs) {
+        override suspend fun operations() = direct_system()
     }
 
     class Emulator(
