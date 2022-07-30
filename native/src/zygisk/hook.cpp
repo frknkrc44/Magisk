@@ -28,6 +28,7 @@ static bool unhook_functions();
 namespace {
 
 enum {
+    DO_HIDE,
     DO_UNMOUNT,
     FORK_AND_SPECIALIZE,
     APP_SPECIALIZE,
@@ -156,7 +157,7 @@ DCL_HOOK_FUNC(int, unshare, int flags) {
     int res = old_unshare(flags);
     if (g_ctx && (flags & CLONE_NEWNS) != 0 && res == 0) {
         if (g_ctx->state[DO_UNMOUNT]) {
-            revert_unmount();
+            revert_unmount(); 
         } else {
             umount2("/system/bin/app_process64", MNT_DETACH);
             umount2("/system/bin/app_process32", MNT_DETACH);
@@ -474,8 +475,19 @@ void HookContext::nativeSpecializeAppProcess_pre() {
     vector<int> module_fds;
     int fd = remote_get_info(args->uid, process, &flags, module_fds);
     if ((flags & UNMOUNT_MASK) == UNMOUNT_MASK) {
-        ZLOGI("[%s] is on the denylist\n", process);
+        ZLOGI("[%s] is on the hidelist\n", process);
+        run_modules_pre(module_fds);
+        cleanup_preload(); 
         state[DO_UNMOUNT] = true;
+        state[DO_HIDE] = true;
+        // Ensure separated namespace, allow denylist to handle isolated process before Android 11
+        if (args->mount_external == 0 /* MOUNT_EXTERNAL_NONE */) {
+            // Only apply the fix before Android 11, as it can cause undefined behaviour in later versions
+             char sdk_ver_str[92]; // PROPERTY_VALUE_MAX
+             if (__system_property_get("ro.build.version.sdk", sdk_ver_str) && atoi(sdk_ver_str) < 30) {
+                args->mount_external = 1 /* MOUNT_EXTERNAL_DEFAULT */;
+            }
+        }
     } else if (fd >= 0) {
         run_modules_pre(module_fds);
     }
@@ -569,6 +581,9 @@ void HookContext::fork_pre() {
     g_ctx = this;
     sigmask(SIG_BLOCK, SIGCHLD);
     pid = old_fork();
+    if (g_ctx->state[DO_HIDE]) {
+        unload_zygisk();
+    }
 }
 
 // Unblock SIGCHLD in case the original method didn't
