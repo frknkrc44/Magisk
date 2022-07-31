@@ -119,7 +119,7 @@ db_settings::db_settings() {
     data[HIDE_DUALSPACE_CONFIG] = false;
     data[ZYGISK_CONFIG] = false;
     data[WHITELIST_CONFIG] = false;
-    data[ANTI_BOOTLOOP] = false;
+    data[ANTI_BOOTLOOP] = true;
 }
 
 int db_settings::get_idx(string_view key) const {

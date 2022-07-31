@@ -254,7 +254,7 @@
     <string name="settings_magiskhide_whitelist_summary">Hide Magisk from all apps except apps that have been previously given root privileges from Magisk</string>
     <string name="settings_magiskhide_dualspace_title">MagiskHide DualSpace</string>
     <string name="settings_magiskhide_dualspace_summary">Hide Magisk from all apps on dual space</string>
-    <string name="settings_anti_bootloop_title">Anti zygote loop</string>
+    <string name="settings_anti_bootloop_title">Bootloop Protection</string>
     <string name="settings_anti_bootloop_summary">Reboot into core-only mode if zygote process failed to start for many times</string>
 
 

@@ -255,7 +255,7 @@
     <string name="settings_magiskhide_whitelist_summary">为所有（除之前授予过超级用户之外）的应用隐藏 Magisk</string>
     <string name="settings_magiskhide_whitelist_title">MagiskHide 白名单模式</string>
     <string name="settings_anti_bootloop_summary">zygote 进程多次启动失败时重启至核心模式</string>
-    <string name="settings_anti_bootloop_title">阻止 zygote 启动失败</string>
+    <string name="settings_anti_bootloop_title">引导循环保护</string>
 
 
 
