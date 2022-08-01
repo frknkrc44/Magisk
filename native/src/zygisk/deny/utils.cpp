@@ -576,6 +576,27 @@ static const char *prop_val[] =
          "0", "0",
          "locked", "green", nullptr};
 
+static const char *prop_suffix[] =
+         {"build.type", "build.tags", nullptr};
+
+static const char *prop_val2[] =
+         {"user", "release-keys", nullptr};
+
+static void hide_prefix_props(const char *suffix_name, const char *val){
+    char buf[4098];
+    const char *prop_prefix[] =
+         {"system", "system_ext", "vendor",
+          "product", "odm", "oem",
+          "vendor_dlkm", nullptr};
+    for (int i = 0; prop_prefix[i]; ++i) {
+        sprintf(buf, "ro.%s.%s", prop_prefix[i], suffix_name);
+        auto value = getprop(buf);
+        if (!value.empty() && value != val)
+            setprop(buf, val, false);
+    }
+}
+
+
 void hide_sensitive_props() {
     LOGI("hide: Reset sensitive props\n");
 
@@ -584,6 +605,9 @@ void hide_sensitive_props() {
         if (!value.empty() && value != prop_val[i])
             setprop(prop_key[i], prop_val[i], false);
     }
+
+    for (int i = 0; prop_suffix[i]; ++i)
+        hide_prefix_props(prop_suffix[i], prop_val2[i]);
 
     // Hide that we booted from recovery when magisk is in recovery mode
     auto bootmode = getprop("ro.bootmode");
