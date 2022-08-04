@@ -54,14 +54,16 @@ static bool accessDir(const std::string &s){
     LOGI("mount: %s\n", buf1);      \
 }
 
-#define mount_mirror(part) \
-if (MNT_DIR_IS("/" #part)  \
+#define mount_orig_mirror(dir, part) \
+if (MNT_DIR_IS("/" #dir)  \
     && !MNT_TYPE_IS("tmpfs") \
     && !MNT_TYPE_IS("overlay") \
     && lstat(me->mnt_dir, &st) == 0) { \
     do_mount_mirror(part); \
     break;                 \
 }
+
+#define mount_mirror(part) mount_orig_mirror(part, part)
 
 #define link_mirror(part) \
 SETMIR(buf1, part); \
@@ -153,10 +155,10 @@ static void mount_mirrors() {
             mount_mirror(product)
             mount_mirror(system_ext)
             mount_mirror(data)
-            link_orig(cache)
-            link_orig(metadata)
-            link_orig(persist)
-            link_orig_dir("/mnt/vendor/persist", persist)
+            mount_mirror(cache)
+            mount_mirror(metadata)
+            mount_mirror(persist)
+            mount_orig_mirror(mnt/vendor/persist, persist)
             if (SDK_INT >= 24 && MNT_DIR_IS("/proc") && !strstr(me->mnt_opts, "hidepid=2")) {
                 xmount(nullptr, "/proc", nullptr, MS_REMOUNT, "hidepid=2,gid=3009");
                 break;
@@ -269,7 +271,12 @@ void reboot() {
 }
 
 static bool core_only(bool rm_trigger){
-    if (access("/data/adb/.disable_magisk", F_OK) == 0 || access("/cache/.disable_magisk", F_OK) == 0 || access("/persist/.disable_magisk", F_OK) == 0 || access("/data/unencrypted/.disable_magisk", F_OK) == 0 || access("/metadata/.disable_magisk", F_OK) == 0 || access("/mnt/vendor/persist/.disable_magisk", F_OK) == 0){
+    if (access("/data/adb/.disable_magisk", F_OK) == 0 \
+		|| access("/cache/.disable_magisk", F_OK) == 0 \
+		|| access("/persist/.disable_magisk", F_OK) == 0 \
+		|| access("/data/unencrypted/.disable_magisk", F_OK) == 0 \
+		|| access("/metadata/.disable_magisk", F_OK) == 0 \
+		|| access("/mnt/vendor/persist/.disable_magisk", F_OK) == 0){
         if (rm_trigger){
             rm_rf("/cache/.disable_magisk");
             rm_rf("/metadata/.disable_magisk");
@@ -307,6 +314,34 @@ static bool check_data() {
     }
     // ro.crypto.state is not set, assume it's unencrypted
     return true;
+}
+
+static void simple_mount(const string &sdir, const string &ddir = "") {
+    auto dir = xopen_dir(sdir.data());
+    if (!dir) return;
+    for (dirent *entry; (entry = xreaddir(dir.get()));) {
+        string src = sdir + "/" + entry->d_name;
+        string dest = ddir + "/" + entry->d_name;
+        if (access(dest.data(), F_OK) == 0) {
+            if (entry->d_type == DT_DIR) {
+                // Recursive
+                simple_mount(src, dest);
+            } else {
+                LOGD("Mount [%s] -> [%s]\n", src.data(), dest.data());
+                xmount(src.data(), dest.data(), nullptr, MS_BIND, nullptr);
+            }
+        }
+    }
+}
+
+void early_mount(const char *magisk_tmp){
+    char buf[4098];
+
+    // expect: buf = MAGISKTMP/.early-mount/system
+    sprintf(buf, "%s/.early-mount/system", magisk_tmp);
+
+    simple_mount(buf, "/system");
+    
 }
 
 void unlock_blocks() {
