@@ -351,6 +351,8 @@ void early_mount(const char *magisk_tmp){
     char buf[4098];
     sprintf(buf, "%s/" MIRRDIR "/early-mount", magisk_tmp);
     fsetfilecon(xopen(buf, O_RDONLY | O_CLOEXEC), "u:object_r:system_file:s0");
+    sprintf(buf, "%s/" MIRRDIR "/early-mount/skip_mount", magisk_tmp);
+    if (access(buf, F_OK) == 0) goto finish;
 
     // SYSTEM
     sprintf(buf, "%s/" MIRRDIR "/early-mount/system", magisk_tmp);
@@ -372,7 +374,7 @@ void early_mount(const char *magisk_tmp){
     if (access(buf, F_OK) == 0 && !system_lnk("/system_ext"))
     	simple_mount(buf, "/system_ext");
     	
-    	
+finish:
     sprintf(buf, "%s/" MIRRDIR "/data", magisk_tmp);
     umount2(buf, MNT_DETACH);
     
@@ -408,10 +410,12 @@ void unlock_blocks() {
 #define test_bit(bit, array) (array[bit / 8] & (1 << (bit % 8)))
 
 static void rebind_early_to_mirr(){
-	char buf[4098];
-	char buf2[4098];
+    char buf[4098];
+    char buf2[4098];
+    sprintf(buf, "%s/" MIRRDIR "/early-mount/skip_mount", MAGISKTMP.data());
+    if (access(buf, F_OK) == 0) return;
 	
-	// SYSTEM
+    // SYSTEM
     sprintf(buf, "%s/" MIRRDIR "/early-mount/system", MAGISKTMP.data());
     sprintf(buf2, "%s/" MIRRDIR "/system", MAGISKTMP.data());
     if (access(buf, F_OK) == 0)
