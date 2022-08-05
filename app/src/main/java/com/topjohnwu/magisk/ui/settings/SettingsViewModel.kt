@@ -62,8 +62,7 @@ class SettingsViewModel : BaseViewModel(), BaseSettingsItem.Handler {
             val is_delta = Shell.cmd("is_delta").exec().isSuccess;
             list.addAll(listOf(
                 Magisk,
-                SystemlessHosts,
-                RiruCore
+                SystemlessHosts
             ))
             if (Const.Version.atLeast_24_0()) {
                 list.add(Zygisk)
