@@ -101,7 +101,7 @@ int get_manager(int user_id, string *pkg, bool install) {
     auto check_dyn = [&](int u) -> bool {
 #if ENFORCE_SIGNATURE
         snprintf(app_path, sizeof(app_path),
-            "%s/%d/%s/dyn/framework.jar", APP_DATA_DIR, u, mgr_pkg->data());
+            "%s/%d/%s/framework/framework.jar", APP_DATA_DIR, u, mgr_pkg->data());
         int dyn = open(app_path, O_RDONLY | O_CLOEXEC);
         if (dyn < 0) {
             LOGW("pkg: no dyn APK, ignore\n");

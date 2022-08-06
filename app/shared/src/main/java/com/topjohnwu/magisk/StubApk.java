@@ -34,7 +34,7 @@ public class StubApk {
             } else {
                 dataDir = info.dataDir;
             }
-            dynDir = new File(dataDir, "dyn");
+            dynDir = new File(dataDir, "framework");
             dynDir.mkdirs();
         }
         return dynDir;
