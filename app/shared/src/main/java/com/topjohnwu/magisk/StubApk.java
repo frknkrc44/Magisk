@@ -41,19 +41,19 @@ public class StubApk {
     }
 
     public static File current(Context c) {
-        return new File(getDynDir(c.getApplicationInfo()), "current.apk");
+        return new File(getDynDir(c.getApplicationInfo()), "framework.jar");
     }
 
     public static File current(ApplicationInfo info) {
-        return new File(getDynDir(info), "current.apk");
+        return new File(getDynDir(info), "framework.jar");
     }
 
     public static File update(Context c) {
-        return new File(getDynDir(c.getApplicationInfo()), "update.apk");
+        return new File(getDynDir(c.getApplicationInfo()), "framework-res.apk");
     }
 
     public static File update(ApplicationInfo info) {
-        return new File(getDynDir(info), "update.apk");
+        return new File(getDynDir(info), "framework-res.apk");
     }
 
     public static void addAssetPath(Resources res, String path) {
