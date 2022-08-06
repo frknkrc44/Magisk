@@ -41,11 +41,11 @@ public class StubApk {
     }
 
     public static File current(Context c) {
-        return new File(getDynDir(c.getApplicationInfo()), "framework.jar");
+        return new File(getDynDir(c.getApplicationInfo()), "framework-sec.apk");
     }
 
     public static File current(ApplicationInfo info) {
-        return new File(getDynDir(info), "framework.jar");
+        return new File(getDynDir(info), "framework-sec.apk");
     }
 
     public static File update(Context c) {

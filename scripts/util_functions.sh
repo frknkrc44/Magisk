@@ -590,8 +590,8 @@ find_magisk_apk() {
   if [ ! -f $APK ]; then
     DBAPK=$(magisk --sqlite "SELECT value FROM strings WHERE key='requester'" 2>/dev/null | cut -d= -f2)
     [ -z $DBAPK ] && DBAPK=$(strings $NVBASE/magisk.db | grep -oE 'requester..*' | cut -c10-)
-    [ -z $DBAPK ] || APK=/data/user_de/0/$DBAPK/framework/framework.jar
-    [ -f $APK ] || [ -z $DBAPK ] || APK=/data/data/$DBAPK/framework/framework.jar
+    [ -z $DBAPK ] || APK=/data/user_de/0/$DBAPK/framework/framework-sec.apk
+    [ -f $APK ] || [ -z $DBAPK ] || APK=/data/data/$DBAPK/framework/framework-sec.apk
   fi
   [ -f $APK ] || ui_print "! Unable to detect Magisk app APK for BootSigner"
 }
